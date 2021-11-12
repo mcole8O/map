@@ -50,17 +50,28 @@
 	
 	    var college = L.layerGroup([marker, marker1]).addTo(mymap);
       
-	var baseMaps = {
+	var basemymaps = {
            "OSM": osm,
            "Google": google
         };
-	var overlayMaps = {
+	var overlaymymaps = {
 	    "Surface": surface,
             "College": college
         };
         L.control.layers(baseMaps, overlayMaps).addTo(mymap);
 	    mymap.addControl(new L.Control.Fullscreen());
 	    
+	    
+	    .leaflet-container .leaflet-control-mouseposition {
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 5px #bbb;
+  padding: 0 5px;
+  margin:0;
+  color: #333;
+  font: 11px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+
 	    L.Control.MousePosition = L.Control.extend({
   options: {
     position: 'bottomleft',
@@ -73,16 +84,16 @@
     prefix: ""
   },
 
-  onAdd: function (map) {
+  onAdd: function (mymap) {
     this._container = L.DomUtil.create('div', 'leaflet-control-mouseposition');
     L.DomEvent.disableClickPropagation(this._container);
-    map.on('mousemove', this._onMouseMove, this);
+    mymap.on('mousemove', this._onMouseMove, this);
     this._container.innerHTML=this.options.emptyString;
     return this._container;
   },
 
-  onRemove: function (map) {
-    map.off('mousemove', this._onMouseMove)
+  onRemove: function (mymap) {
+    mymap.off('mousemove', this._onMouseMove)
   },
 
   _onMouseMove: function (e) {
